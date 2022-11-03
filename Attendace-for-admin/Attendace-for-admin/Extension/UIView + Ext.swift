@@ -9,13 +9,9 @@ import Foundation
 import UIKit
 
 extension UIView {
+
     
-    enum MemberStatus{
-        case online
-        case offline
-    }
-    
-    func createCircle(color : UIColor = UIColor.systemRed, status : MemberStatus = .online) -> UIView {
+    func createCircle(status : MemberDetailView.MemberStatus = .online) -> UIView {
         
         let circle : UIView = UIView()
         
@@ -25,7 +21,12 @@ extension UIView {
         // circle의 위치 및 크기 설정
         circle.frame = CGRect(x: centerX, y: centerY , width: 100, height: 100)
         // circle의 색깔 설정
-        circle.layer.backgroundColor = color.cgColor
+        if status == MemberDetailView.MemberStatus.online
+        {
+            circle.layer.backgroundColor = UIColor.systemGreen.cgColor
+        }else{
+            circle.layer.backgroundColor = UIColor.systemRed.cgColor
+        }
         // circle의 radius를 width(height)의 반으로 설정하여 원 모양으로 만듬
         circle.layer.cornerRadius = 7
 //        // circle의 그림자 설정

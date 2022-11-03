@@ -13,18 +13,26 @@ import SnapKit
 
 class MemberDetailView: UIViewController {
     
+//MARK: - Items
+    
     enum MemberStatus{
         case online
         case offline
     }
     
+    // 받을 데이터
+    let statusCondition = "근무중"
     var memberName = "사원이름"
     var departmentName = "소속 부서"
+    
+    var statusText = "온라인"
+    
+    var online : MemberStatus = MemberStatus.online
+    var offline : MemberStatus = MemberStatus.offline
+    
     var memberStatus = MemberStatus.online
     
-    
     let memberImage = UIImage(systemName: "person.circle")
-    
     
     lazy var memberImageView : UIImageView = UIImageView().then{
         $0.image = memberImage
@@ -42,32 +50,34 @@ class MemberDetailView: UIViewController {
     }
     
     lazy var statusLabel : UILabel = UILabel().then{
-        $0.text = ""
+        
+        $0.text = statusText
+        $0.font = .systemFont(ofSize: 16, weight: .semibold)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setUI()
         view.backgroundColor = .white
-        
-        
     }
 }
 
+
+//MARK: - UISetting
 extension MemberDetailView {
-    
     
     fileprivate func setUI() {
         addToView()
         setLayout()
+        setCircle()
+        setStatusLabel()
     }
     
     fileprivate func addToView() {
         view.addSubview(memberNameLabel)
         view.addSubview(memberImageView)
         view.addSubview(departmentNameLabel)
-//        view.addSubview(circle)
+        view.addSubview(statusLabel)
     }
     
     fileprivate func setLayout() {
@@ -90,17 +100,52 @@ extension MemberDetailView {
             $0.left.equalTo(memberNameLabel.snp.left)
         }
         
-//        circle.snp.makeConstraints{
-//            $0.width.equalTo(14)
-//            $0.height.equalTo(14)
-//            
-//            $0.top.equalTo(departmentNameLabel.snp.bottom).offset(10)
-//            $0.left.equalTo(departmentNameLabel.snp.left)
-//        }
+        statusLabel.snp.makeConstraints{
+            $0.left.equalTo(departmentNameLabel.snp.left).offset(20)
+            $0.top.equalTo(departmentNameLabel.snp.bottom).offset(7)
+        }
+    }
+    
+    //MARK: - 활성화 상태
+    
+    /// 상태 바꾸기
+    /// - Returns: 근무중이면 online, 아닐 경우 offline
+    func changeStatus() -> MemberStatus {
+        statusCondition == "근무중" ? (memberStatus = MemberStatus.online) : (memberStatus = MemberStatus.offline)
         
+        return memberStatus
+    }
+    
+    func changeStatusLabel() -> String {
+        
+        statusCondition == "근무중" ? (statusText = "온라인") : (statusText = "오프라인")
+        
+        return statusText
+    }
+    
+    /// 현재 상태 Circle
+    fileprivate func setCircle(){
+        
+        let circle : UIView = UIView().createCircle(status: changeStatus())
+        view.addSubview(circle)
+        
+        circle.snp.makeConstraints{
+            $0.width.equalTo(14)
+            $0.height.equalTo(14)
+
+            $0.top.equalTo(departmentNameLabel.snp.bottom).offset(10)
+            $0.left.equalTo(departmentNameLabel.snp.left)
+        }
+    }
+    
+    fileprivate func setStatusLabel(){
+        changeStatusLabel()
+        statusLabel.text = statusText
     }
 }
 
+
+//MARK: - Preview Setting
 #if DEBUG
 
 import SwiftUI
