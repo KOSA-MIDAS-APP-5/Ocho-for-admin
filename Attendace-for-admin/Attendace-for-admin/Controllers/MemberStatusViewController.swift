@@ -33,8 +33,8 @@ extension MemberStatusViewController {
     fileprivate func setTableView() {
         
         // -- 온라인 테이블 뷰 --
-        onlineTableView.delegate = self
-        onlineTableView.dataSource = self
+        self.onlineTableView.delegate = self
+        self.onlineTableView.dataSource = self
         
 //        onlineTableView.backgroundColor = .systemYellow
         onlineTableView.isScrollEnabled = false
@@ -44,8 +44,8 @@ extension MemberStatusViewController {
         self.onlineTableView.invalidateIntrinsicContentSize()
         
         // -- 오프라인 테이블 뷰 --
-        offlineTableView.delegate = self
-        offlineTableView.dataSource = self
+        self.offlineTableView.delegate = self
+        self.offlineTableView.dataSource = self
         
         offlineTableView.isScrollEnabled = false
         offlineTableView.reloadData()

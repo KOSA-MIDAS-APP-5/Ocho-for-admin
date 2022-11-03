@@ -19,6 +19,12 @@
 		8DEF4DA82913939900D07B61 /* MemberStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF4DA72913939900D07B61 /* MemberStatusViewController.swift */; };
 		8DEF4DAA291393E200D07B61 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF4DA9291393E200D07B61 /* MemberCell.swift */; };
 		8DEF4DAC291399F300D07B61 /* OfflineTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF4DAB291399F300D07B61 /* OfflineTableView.swift */; };
+		8DEF4DAF29139D8800D07B61 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8DEF4DAE29139D8800D07B61 /* SnapKit */; };
+		8DEF4DB229139DC100D07B61 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 8DEF4DB129139DC100D07B61 /* RxCocoa */; };
+		8DEF4DB429139DC100D07B61 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 8DEF4DB329139DC100D07B61 /* RxRelay */; };
+		8DEF4DB629139DC100D07B61 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8DEF4DB529139DC100D07B61 /* RxSwift */; };
+		8DEF4DB929139DCF00D07B61 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 8DEF4DB829139DCF00D07B61 /* Then */; };
+		8DEF4DBC29139F6B00D07B61 /* InputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF4DBB29139F6B00D07B61 /* InputTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +61,7 @@
 		8DEF4DA72913939900D07B61 /* MemberStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberStatusViewController.swift; sourceTree = "<group>"; };
 		8DEF4DA9291393E200D07B61 /* MemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
 		8DEF4DAB291399F300D07B61 /* OfflineTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineTableView.swift; sourceTree = "<group>"; };
+		8DEF4DBB29139F6B00D07B61 /* InputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +69,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DEF4DB929139DCF00D07B61 /* Then in Frameworks */,
+				8DEF4DB429139DC100D07B61 /* RxRelay in Frameworks */,
+				8DEF4DB229139DC100D07B61 /* RxCocoa in Frameworks */,
+				8DEF4DB629139DC100D07B61 /* RxSwift in Frameworks */,
+				8DEF4DAF29139D8800D07B61 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,10 +117,10 @@
 		8DEF4D75291392A300D07B61 /* Attendace-for-admin */ = {
 			isa = PBXGroup;
 			children = (
+				8DEF4DBA29139F4300D07B61 /* Components */,
 				8DEF4DA62913934400D07B61 /* Controllers */,
 				8DEF4D76291392A300D07B61 /* AppDelegate.swift */,
 				8DEF4D78291392A300D07B61 /* SceneDelegate.swift */,
-				8DEF4D7A291392A300D07B61 /* LoginViewController.swift */,
 				8DEF4D7C291392A300D07B61 /* Main.storyboard */,
 				8DEF4D7F291392A400D07B61 /* Assets.xcassets */,
 				8DEF4D81291392A400D07B61 /* LaunchScreen.storyboard */,
@@ -138,10 +150,19 @@
 		8DEF4DA62913934400D07B61 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8DEF4D7A291392A300D07B61 /* LoginViewController.swift */,
 				8DEF4DA72913939900D07B61 /* MemberStatusViewController.swift */,
 				8DEF4DAB291399F300D07B61 /* OfflineTableView.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		8DEF4DBA29139F4300D07B61 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				8DEF4DBB29139F6B00D07B61 /* InputTextField.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,6 +181,13 @@
 			dependencies = (
 			);
 			name = "Attendace-for-admin";
+			packageProductDependencies = (
+				8DEF4DAE29139D8800D07B61 /* SnapKit */,
+				8DEF4DB129139DC100D07B61 /* RxCocoa */,
+				8DEF4DB329139DC100D07B61 /* RxRelay */,
+				8DEF4DB529139DC100D07B61 /* RxSwift */,
+				8DEF4DB829139DCF00D07B61 /* Then */,
+			);
 			productName = "Attendace-for-admin";
 			productReference = 8DEF4D73291392A300D07B61 /* Attendace-for-admin.app */;
 			productType = "com.apple.product-type.application";
@@ -232,6 +260,11 @@
 				Base,
 			);
 			mainGroup = 8DEF4D6A291392A300D07B61;
+			packageReferences = (
+				8DEF4DAD29139D8800D07B61 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				8DEF4DB029139DC100D07B61 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				8DEF4DB729139DCF00D07B61 /* XCRemoteSwiftPackageReference "Then" */,
+			);
 			productRefGroup = 8DEF4D74291392A300D07B61 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -280,6 +313,7 @@
 				8DEF4D7B291392A300D07B61 /* LoginViewController.swift in Sources */,
 				8DEF4D77291392A300D07B61 /* AppDelegate.swift in Sources */,
 				8DEF4D79291392A300D07B61 /* SceneDelegate.swift in Sources */,
+				8DEF4DBC29139F6B00D07B61 /* InputTextField.swift in Sources */,
 				8DEF4DAC291399F300D07B61 /* OfflineTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -622,6 +656,61 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8DEF4DAD29139D8800D07B61 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+		8DEF4DB029139DC100D07B61 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		8DEF4DB729139DCF00D07B61 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8DEF4DAE29139D8800D07B61 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8DEF4DAD29139D8800D07B61 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		8DEF4DB129139DC100D07B61 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8DEF4DB029139DC100D07B61 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		8DEF4DB329139DC100D07B61 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8DEF4DB029139DC100D07B61 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		8DEF4DB529139DC100D07B61 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8DEF4DB029139DC100D07B61 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		8DEF4DB829139DCF00D07B61 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8DEF4DB729139DCF00D07B61 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8DEF4D6B291392A300D07B61 /* Project object */;
 }
