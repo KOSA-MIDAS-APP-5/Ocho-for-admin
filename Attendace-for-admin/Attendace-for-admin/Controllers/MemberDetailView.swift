@@ -15,13 +15,21 @@ class MemberDetailView: UIViewController {
     
 //MARK: - Items
     
+    
+    var longtitude : Double = 127.101473808
+    var latitude : Double = 37.4001134519
+    
+    var testLocation = CLLocationCoordinate2D(latitude: 37.4001134519, longitude: 127.101473808)
+
+    
     let mapView = MKMapView()
+    let locationManager = CLLocationManager()
     
     enum MemberStatus{
         case online
         case offline
     }
-    
+        
     // 받을 데이터
     let statusCondition = "근무중"
     var memberName = "사원이름"
@@ -56,16 +64,25 @@ class MemberDetailView: UIViewController {
         $0.text = statusText
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
     }
+    
+    lazy var addressLabel : UILabel = UILabel().then{
+        $0.text = ""
+        $0.textAlignment = .center
+        $0.numberOfLines = 0
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         view.backgroundColor = .white
+        locationManager.delegate = self
         let mark = Marker(
-                  title: "홍대입구역",
-                  subtitle: "test",
-                  coordinate: CLLocationCoordinate2D(latitude: 37.55769, longitude: 126.92450))
+                  title: memberName,
+                  subtitle: departmentName,
+                  coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longtitude))
         mapView.addAnnotation(mark)
+        
+        mapView.setRegion(MKCoordinateRegion(center: testLocation, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)), animated: true)
     }
     
     
@@ -80,6 +97,8 @@ extension MemberDetailView {
         setLayout()
         setCircle()
         setStatusLabel()
+        mapSetting()
+        searchLocation(testLocation)
     }
     
     fileprivate func addToView() {
@@ -88,6 +107,7 @@ extension MemberDetailView {
         view.addSubview(departmentNameLabel)
         view.addSubview(statusLabel)
         view.addSubview(mapView)
+        view.addSubview(addressLabel)
     }
     
     fileprivate func setLayout() {
@@ -121,10 +141,27 @@ extension MemberDetailView {
             $0.top.equalTo(statusLabel.snp.bottom).offset(50)
             $0.left.equalToSuperview().offset(20)
         }
+        
+        addressLabel.snp.makeConstraints{
+            $0.top.equalTo(mapView.snp.bottom).offset(20)
+            $0.centerX.equalToSuperview()
+            $0.left.equalTo(20)
+            
+        }
     }
     
-    fileprivate func markSetting(){
-  
+    fileprivate func mapSetting(){
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        // 위치 데이터 추적을 위해 사용자에게 승인 요구
+        locationManager.requestWhenInUseAuthorization()
+        
+        // 위치 업데이트 시작
+        locationManager.startUpdatingLocation()
+//        mapView.showsUserLocation = true
+        
+        
+
     }
     
     //MARK: - 활성화 상태
@@ -163,6 +200,46 @@ extension MemberDetailView {
         changeStatusLabel()
         statusLabel.text = statusText
     }
+}
+
+extension MemberDetailView : CLLocationManagerDelegate {
+    
+    func goLocation(latitudeValue : CLLocationDegrees, longitudeValue : CLLocationDegrees, delta span :Double)->CLLocationCoordinate2D{
+
+        let pLocation = CLLocationCoordinate2DMake(latitude, longtitude)
+        
+        let spanValue = MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)
+        
+        let pRegion = MKCoordinateRegion(center: pLocation, span: spanValue)
+        
+        mapView.setRegion(pRegion, animated: true)
+        
+        return pLocation
+    }
+    
+    
+ /// 해당 포인트의 주소를 검색
+ private func searchLocation(_ point: CLLocationCoordinate2D) {
+     let geocoder: CLGeocoder = CLGeocoder()
+     let location = CLLocation(latitude: point.latitude, longitude: point.longitude)
+                 
+     geocoder.reverseGeocodeLocation(location) { (placeMarks, error) in
+         if error == nil, let marks = placeMarks {
+             marks.forEach { (placeMark) in
+                 let annotation = MKPointAnnotation()
+                 annotation.coordinate = CLLocationCoordinate2D(latitude: point.latitude, longitude: point.longitude)
+                 
+                 self.addressLabel.text = "\(placeMark.administrativeArea ?? "") \(placeMark.locality ?? "") \(placeMark.thoroughfare ?? "")"
+                 
+                 self.mapView.addAnnotation(annotation)
+                }
+           } else {
+             self.addressLabel.text = "검색 실패"
+           }
+       }
+ }
+    
+    
 }
 
 
