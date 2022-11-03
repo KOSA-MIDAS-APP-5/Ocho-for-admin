@@ -26,7 +26,7 @@
         <!--Member Status View Controller-->
         <scene sceneID="uvv-Ty-Aot">
             <objects>
-                <viewController id="OYb-2g-Kfc" customClass="MemberStatusViewController" customModule="Attendace_for_admin" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MemberStatusVC" id="OYb-2g-Kfc" customClass="MemberStatusViewController" customModule="Attendace_for_admin" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yqY-Gr-11z">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

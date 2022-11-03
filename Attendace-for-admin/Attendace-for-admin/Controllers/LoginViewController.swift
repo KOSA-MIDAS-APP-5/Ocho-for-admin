@@ -49,6 +49,18 @@ class LoginViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
         setUI()
+        
+    }
+    
+    @objc private func didTapLogin() {
+        
+        
+        guard let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "MemberStatusVC") as? MemberStatusViewController else { return }
+        // 화면 전환 애니메이션 설정
+        secondViewController.modalTransitionStyle = .coverVertical
+        // 전환된 화면이 보여지는 방법 설정 (fullScreen)
+        secondViewController.modalPresentationStyle = .fullScreen
+        self.present(secondViewController, animated: true, completion: nil)
     }
 }
 
@@ -116,6 +128,11 @@ extension LoginViewController {
         
     }
     
+    
+        
+
+    
+    
     fileprivate func setRx(){
         
         idTextField.rx.text
@@ -155,18 +172,17 @@ extension LoginViewController {
             .bind(to: loginButton.rx.backgroundColor)
             .disposed(by: disposeBag)
         
+        everythingValid
+            .bind(to: self.loginButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
         loginButton.rx.tap
             .subscribe(onNext: {[weak self] _ in self?.didTapLogin() })
             .disposed(by: disposeBag)
         
     }
 
-    @objc private func didTapLogin() {
-        let rootVC = MemberStatusViewController()
-        let navVC = UINavigationController(rootViewController: rootVC)
-        
-        present(navVC, animated: true)
-    }
+
     
 }
 

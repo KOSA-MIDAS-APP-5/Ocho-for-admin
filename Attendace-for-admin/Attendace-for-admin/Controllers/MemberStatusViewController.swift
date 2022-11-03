@@ -10,14 +10,30 @@ import UIKit
 class MemberStatusViewController: UIViewController {
     
     
-    @IBOutlet weak var onlineTableView: UITableView!
+    @IBOutlet weak var onlineTableView: UITableView!{
+        didSet{
+            self.onlineTableView.delegate = self
+            self.onlineTableView.dataSource = self
+        }
+    }
     @IBOutlet weak var onlineTableViewHeight: NSLayoutConstraint!
     
-    @IBOutlet weak var offlineTableView: UITableView!
+    @IBOutlet weak var offlineTableView: UITableView!{
+        didSet{
+            self.offlineTableView.delegate = self
+            self.offlineTableView.dataSource = self
+        }
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.title = "임직원 현황"
+
+        
+
+        
         setTableView()
         // Do any additional setup after loading the view.
     
@@ -33,22 +49,21 @@ extension MemberStatusViewController {
     fileprivate func setTableView() {
         
         // -- 온라인 테이블 뷰 --
-        self.onlineTableView.delegate = self
-        self.onlineTableView.dataSource = self
+
+    
         
 //        onlineTableView.backgroundColor = .systemYellow
         onlineTableView.isScrollEnabled = false
         
-        onlineTableView.reloadData()
+//        onlineTableView.reloadData()
         // 셀 개수에 따른 높이
         self.onlineTableView.invalidateIntrinsicContentSize()
         
         // -- 오프라인 테이블 뷰 --
-        self.offlineTableView.delegate = self
-        self.offlineTableView.dataSource = self
+
         
         offlineTableView.isScrollEnabled = false
-        offlineTableView.reloadData()
+//        offlineTableView.reloadData()
         self.offlineTableView.invalidateIntrinsicContentSize()
 
     }
