@@ -54,13 +54,13 @@ class LoginViewController: UIViewController {
     
     @objc private func didTapLogin() {
         
-        
-        guard let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "MemberStatusVC") as? MemberStatusViewController else { return }
+        guard let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "MemberStatusVC") as? UINavigationController else { return }
         // 화면 전환 애니메이션 설정
         secondViewController.modalTransitionStyle = .coverVertical
         // 전환된 화면이 보여지는 방법 설정 (fullScreen)
         secondViewController.modalPresentationStyle = .fullScreen
         self.present(secondViewController, animated: true, completion: nil)
+        
     }
 }
 

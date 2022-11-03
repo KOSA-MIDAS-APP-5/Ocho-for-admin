@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gW6-pe-PwC">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
@@ -21,18 +21,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="92" y="-2"/>
+            <point key="canvasLocation" x="1048" y="-2"/>
         </scene>
-        <!--Member Status View Controller-->
+        <!--임직원 현황-->
         <scene sceneID="uvv-Ty-Aot">
             <objects>
-                <viewController storyboardIdentifier="MemberStatusVC" id="OYb-2g-Kfc" customClass="MemberStatusViewController" customModule="Attendace_for_admin" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="OYb-2g-Kfc" customClass="MemberStatusViewController" customModule="Attendace_for_admin" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yqY-Gr-11z">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="qSP-2f-lF5">
-                                <rect key="frame" x="0.0" y="397" width="390" height="413"/>
+                                <rect key="frame" x="0.0" y="441" width="390" height="369"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="0rM-Gs-ynB" customClass="MemberCell" customModule="Attendace_for_admin" customModuleProvider="target">
@@ -80,7 +80,7 @@
                                 </prototypes>
                             </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Dmo-0b-OdM">
-                                <rect key="frame" x="0.0" y="47" width="390" height="350"/>
+                                <rect key="frame" x="0.0" y="91" width="390" height="350"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="350" id="7PV-OE-gLq"/>
@@ -144,15 +144,51 @@
                             <constraint firstItem="Dmo-0b-OdM" firstAttribute="leading" secondItem="yqY-Gr-11z" secondAttribute="leading" id="zUv-Cw-wdC"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="임직원 현황" id="k47-di-X2K"/>
                     <connections>
                         <outlet property="offlineTableView" destination="qSP-2f-lF5" id="GRf-1Q-PCy"/>
                         <outlet property="onlineTableView" destination="Dmo-0b-OdM" id="p3O-D4-z7b"/>
                         <outlet property="onlineTableViewHeight" destination="7PV-OE-gLq" id="aDN-cr-X9L"/>
+                        <segue destination="3Pk-ZP-hGG" kind="show" identifier="showDetail" id="D2t-mx-a8f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Feu-bZ-fhJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="896.92307692307691" y="-2.1327014218009479"/>
+            <point key="canvasLocation" x="2755.3846153846152" y="-2.1327014218009479"/>
+        </scene>
+        <!--Member Detail View-->
+        <scene sceneID="GKZ-oI-Xle">
+            <objects>
+                <viewController id="3Pk-ZP-hGG" customClass="MemberDetailView" customModule="Attendace_for_admin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9ui-3V-btk">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="hJD-UU-ZKB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="IC5-8i-9Mm"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SAb-F3-wdz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3591" y="-2"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="AS7-Vc-XZT">
+            <objects>
+                <navigationController storyboardIdentifier="MemberStatusVC" automaticallyAdjustsScrollViewInsets="NO" id="gW6-pe-PwC" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="XCJ-q3-Ter">
+                        <rect key="frame" x="0.0" y="47" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="OYb-2g-Kfc" kind="relationship" relationship="rootViewController" id="Wch-XK-AWv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d09-W1-UJ0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1826.1538461538462" y="-2.1327014218009479"/>
         </scene>
     </scenes>
     <resources>

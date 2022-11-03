@@ -8,7 +8,7 @@
 import UIKit
 
 class MemberStatusViewController: UIViewController {
-    
+        
     
     @IBOutlet weak var onlineTableView: UITableView!{
         didSet{
@@ -73,7 +73,6 @@ extension MemberStatusViewController {
 
 extension MemberStatusViewController : UITableViewDelegate {
     
-    
 }
 
 extension MemberStatusViewController : UITableViewDataSource {
@@ -117,14 +116,19 @@ extension MemberStatusViewController : UITableViewDataSource {
     // tableView select -> action
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-    }
+        
+        performSegue(withIdentifier: "showDetail", sender: nil)
+        print("tapped")
+        
+            }
     
     // Cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
+        
         return cell
     }
+    
 }
-
