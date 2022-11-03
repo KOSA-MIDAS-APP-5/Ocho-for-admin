@@ -8,12 +8,14 @@
 import UIKit
 import Then
 import SnapKit
-
+import MapKit
 
 
 class MemberDetailView: UIViewController {
     
 //MARK: - Items
+    
+    let mapView = MKMapView()
     
     enum MemberStatus{
         case online
@@ -59,7 +61,14 @@ class MemberDetailView: UIViewController {
         super.viewDidLoad()
         setUI()
         view.backgroundColor = .white
+        let mark = Marker(
+                  title: "홍대입구역",
+                  subtitle: "test",
+                  coordinate: CLLocationCoordinate2D(latitude: 37.55769, longitude: 126.92450))
+        mapView.addAnnotation(mark)
     }
+    
+    
 }
 
 
@@ -78,6 +87,7 @@ extension MemberDetailView {
         view.addSubview(memberImageView)
         view.addSubview(departmentNameLabel)
         view.addSubview(statusLabel)
+        view.addSubview(mapView)
     }
     
     fileprivate func setLayout() {
@@ -104,6 +114,17 @@ extension MemberDetailView {
             $0.left.equalTo(departmentNameLabel.snp.left).offset(20)
             $0.top.equalTo(departmentNameLabel.snp.bottom).offset(7)
         }
+        
+        mapView.snp.makeConstraints{
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(300)
+            $0.top.equalTo(statusLabel.snp.bottom).offset(50)
+            $0.left.equalToSuperview().offset(20)
+        }
+    }
+    
+    fileprivate func markSetting(){
+  
     }
     
     //MARK: - 활성화 상태
