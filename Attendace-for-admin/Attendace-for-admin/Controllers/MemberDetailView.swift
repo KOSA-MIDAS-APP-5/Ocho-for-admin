@@ -143,7 +143,7 @@ class MemberDetailView: UIViewController {
         locationManager.delegate = self
         let mark = Marker(
                   title: memberName,
-                  subtitle: departmentName,
+                  subtitle: statusCondition,
                   coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
         mapView.addAnnotation(mark)
         mapView.setRegion(MKCoordinateRegion(center: userLocation, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)), animated: true)
@@ -286,7 +286,7 @@ extension MemberDetailView {
         locationManager.requestWhenInUseAuthorization()
         
         // 위치 업데이트 시작
-        locationManager.startUpdatingLocation()
+//        locationManager.startUpdatingLocation()
 //        mapView.showsUserLocation = true
         
         
