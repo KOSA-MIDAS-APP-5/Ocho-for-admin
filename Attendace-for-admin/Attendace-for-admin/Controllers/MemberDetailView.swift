@@ -20,7 +20,6 @@ class MemberDetailView: UIViewController {
     var latitude : Double = 37.4001134519
     
     var testLocation = CLLocationCoordinate2D(latitude: 37.4001134519, longitude: 127.101473808)
-
     
     let mapView = MKMapView()
     let locationManager = CLLocationManager()
@@ -37,10 +36,14 @@ class MemberDetailView: UIViewController {
     
     var statusText = "온라인"
     
+    var workedTime = "3:00시간 일했습니다."
+    var leftTime = "5:00시간 남았습니다."
+    
     var online : MemberStatus = MemberStatus.online
     var offline : MemberStatus = MemberStatus.offline
     
     var memberStatus = MemberStatus.online
+    
     
     let memberImage = UIImage(systemName: "person.circle")
     
@@ -70,7 +73,39 @@ class MemberDetailView: UIViewController {
         $0.textAlignment = .center
         $0.numberOfLines = 0
     }
+    
+    lazy var workDescription : UILabel = UILabel().then{
+        $0.text = "일 한 시간"
+        $0.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+    }
+    
+    lazy var roundView : UIView = UIView().then{
+        $0.layer.cornerRadius = 10
+        $0.backgroundColor = .systemRed
+    }
+    
+    lazy var workedTimeLabel : kerningLabel = kerningLabel().then{
+        $0.text = workedTime
+        $0.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        $0.textAlignment = .center
+    }
 
+    lazy var leftTimeDescription : UILabel = UILabel().then{
+        $0.text = "남은 시간"
+        $0.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+    }
+    
+    lazy var roundView2 : UIView = UIView().then{
+        $0.layer.cornerRadius = 10
+        $0.backgroundColor = .systemRed
+    }
+    
+    lazy var leftTimeLabel : UILabel = UILabel().then{
+        $0.text = leftTime
+        $0.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        $0.textAlignment = .center
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -108,6 +143,12 @@ extension MemberDetailView {
         view.addSubview(statusLabel)
         view.addSubview(mapView)
         view.addSubview(addressLabel)
+        view.addSubview(workDescription)
+        view.addSubview(roundView)
+        roundView.addSubview(workedTimeLabel)
+        view.addSubview(leftTimeDescription)
+        view.addSubview(roundView2)
+        roundView2.addSubview(leftTimeLabel)
     }
     
     fileprivate func setLayout() {
@@ -146,8 +187,40 @@ extension MemberDetailView {
             $0.top.equalTo(mapView.snp.bottom).offset(20)
             $0.centerX.equalToSuperview()
             $0.left.equalTo(20)
-            
         }
+        
+        workDescription.snp.makeConstraints{
+            $0.top.equalTo(addressLabel.snp.bottom).offset(10)
+            $0.left.equalTo(addressLabel)
+        }
+        
+        roundView.snp.makeConstraints{
+            $0.height.equalTo(50)
+            $0.top.equalTo(workDescription.snp.bottom).offset(10)
+            $0.left.equalTo(workDescription.snp.left)
+            $0.centerX.equalToSuperview()
+        }
+        
+        workedTimeLabel.snp.makeConstraints{
+            $0.edges.equalToSuperview()
+        }
+        
+        leftTimeDescription.snp.makeConstraints{
+            $0.top.equalTo(roundView.snp.bottom).offset(10)
+            $0.left.equalTo(roundView)
+        }
+        
+        roundView2.snp.makeConstraints{
+            $0.height.equalTo(50)
+            $0.top.equalTo(leftTimeDescription.snp.bottom).offset(10)
+            $0.left.equalTo(leftTimeDescription.snp.left)
+            $0.centerX.equalToSuperview()
+        }
+        
+        leftTimeLabel.snp.makeConstraints{
+            $0.edges.equalToSuperview()
+        }
+        
     }
     
     fileprivate func mapSetting(){

@@ -34,4 +34,8 @@ extension UIView {
 //        circle.layer.shadowRadius = 7
         return circle
     }
+    
+    func createRound(){
+        self.layer.cornerRadius = 10
+    }
 }
