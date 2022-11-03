@@ -9,17 +9,22 @@ import UIKit
 import Then
 import SnapKit
 import MapKit
+import RxSwift
+import RxCocoa
 
 
 class MemberDetailView: UIViewController {
     
 //MARK: - Items
     
+    var disposeBag = DisposeBag()
     
     var longtitude : Double = 127.101473808
     var latitude : Double = 37.4001134519
     
     var testLocation = CLLocationCoordinate2D(latitude: 37.4001134519, longitude: 127.101473808)
+    
+    lazy var minimumNameLength = 1
     
     let mapView = MKMapView()
     let locationManager = CLLocationManager()
@@ -51,9 +56,18 @@ class MemberDetailView: UIViewController {
         $0.image = memberImage
     }
     
-    lazy var memberNameLabel : UILabel = UILabel().then{
-        $0.text = memberName
+    lazy var memberNameLabel : UITextField = UITextField().then{
+        $0.attributedPlaceholder = NSAttributedString(
+            string: memberName,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.black]
+        )
         $0.font = .systemFont(ofSize: 24, weight: .heavy)
+    }
+    
+    lazy var changeLabelButton : UIButton = UIButton().then{
+        $0.setTitle("교체", for: .normal)
+        $0.backgroundColor = .lightGray
+        $0.layer.cornerRadius = 5
     }
     
     lazy var departmentNameLabel : UILabel = UILabel().then{
@@ -106,6 +120,10 @@ class MemberDetailView: UIViewController {
         $0.textAlignment = .center
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+         self.view.endEditing(true)
+   }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -119,8 +137,6 @@ class MemberDetailView: UIViewController {
         
         mapView.setRegion(MKCoordinateRegion(center: testLocation, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)), animated: true)
     }
-    
-    
 }
 
 
@@ -134,10 +150,12 @@ extension MemberDetailView {
         setStatusLabel()
         mapSetting()
         searchLocation(testLocation)
+        setRx()
     }
     
     fileprivate func addToView() {
         view.addSubview(memberNameLabel)
+        view.addSubview(changeLabelButton)
         view.addSubview(memberImageView)
         view.addSubview(departmentNameLabel)
         view.addSubview(statusLabel)
@@ -156,6 +174,13 @@ extension MemberDetailView {
         memberNameLabel.snp.makeConstraints{
             $0.left.equalTo(memberImageView.snp.right).offset(30)
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(40)
+        }
+        
+        changeLabelButton.snp.makeConstraints{
+            $0.top.equalTo(memberNameLabel.snp.top)
+            $0.right.equalTo(view.safeAreaLayoutGuide.snp.right).inset(20)
+            $0.width.equalTo(40)
+            $0.height.equalTo(30)
         }
         
         memberImageView.snp.makeConstraints{
@@ -312,7 +337,46 @@ extension MemberDetailView : CLLocationManagerDelegate {
        }
  }
     
-    
+}
+
+//MARK: - Rx
+extension MemberDetailView {
+    fileprivate func setRx(){
+        
+        let idValid = memberNameLabel.rx.text.orEmpty
+            .map{ $0.count >= self.minimumNameLength }
+            .share(replay : 1)
+        
+        idValid
+            .map { isValid -> UIColor in
+                let color : UIColor = isValid ? .systemBlue : .lightGray
+                return color
+            }
+            .bind(to: changeLabelButton.rx.backgroundColor)
+            .disposed(by: disposeBag)
+        
+        idValid
+            .bind(to: self.changeLabelButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        changeLabelButton.rx.tap
+            .subscribe(onNext: {[weak self] _ in self?.didTapButton() })
+            .disposed(by: disposeBag)
+        
+        changeLabelButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+                    
+    }
+    @objc private func didTapButton() {
+        memberNameLabel.rx.text
+            .bind(onNext: { s in
+                self.memberName = s!
+                self.memberNameLabel.placeholder = s
+                self.view.endEditing(true)
+                print(self.memberNameLabel.placeholder)
+            })
+            .disposed(by: disposeBag)
+    }
+
 }
 
 
