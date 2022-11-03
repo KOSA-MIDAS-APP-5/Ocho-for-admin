@@ -13,13 +13,12 @@ class MemberCell: UITableViewCell {
     @IBOutlet weak var memberNameLabel: UILabel!
     @IBOutlet weak var departmentLabel: UILabel!
     
-    var memberName = "사원이름"
-    var department = "앱 개발부"
+    var memberName: String = ""
+    var department: String = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
         setUI()
 //        self.backgroundColor = .systemGreen
         
@@ -27,7 +26,7 @@ class MemberCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
 
@@ -42,12 +41,8 @@ extension MemberCell {
         let image = UIImage(systemName: "person.circle")
         memberImage.image = image
         
-        memberNameLabel.text = memberName
-        
-        departmentLabel.text = department
         departmentLabel.textColor = UIColor.lightGray
         departmentLabel.font = .systemFont(ofSize: 16)
-        
         
     }
 }

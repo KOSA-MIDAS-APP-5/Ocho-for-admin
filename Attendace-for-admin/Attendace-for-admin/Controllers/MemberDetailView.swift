@@ -11,20 +11,23 @@ import SnapKit
 import MapKit
 import RxSwift
 import RxCocoa
+import Moya
 
 
 class MemberDetailView: UIViewController {
-    
+    let userService = MoyaProvider<UserService>(plugins: [MoyaLoggerPlugin()])
 //MARK: - Items
     
     var disposeBag = DisposeBag()
     
+    var userID: Int?
+    
     var result : String!
     
-    var longtitude : Double = 127.101473808
+    var longitude : Double = 127.101473808
     var latitude : Double = 37.4001134519
     
-    var testLocation = CLLocationCoordinate2D(latitude: 37.4001134519, longitude: 127.101473808)
+    var userLocation = CLLocationCoordinate2D()
     
     lazy var minimumNameLength = 1
     
@@ -37,7 +40,7 @@ class MemberDetailView: UIViewController {
     }
         
     // 받을 데이터
-    let statusCondition = "근무중"
+    var statusCondition = "근무중"
     var memberName = "사원이름"
     var departmentName = "수정 후 이름이 기재될 공간입니다."
     
@@ -129,19 +132,49 @@ class MemberDetailView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
+        detailData()
         view.backgroundColor = .white
+        changeLabelButton.addTarget(self, action: #selector(textFieldDidChange), for: .touchUpInside)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        userLocation.latitude = latitude
+        userLocation.longitude = longitude
         locationManager.delegate = self
         let mark = Marker(
                   title: memberName,
                   subtitle: departmentName,
-                  coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longtitude))
+                  coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
         mapView.addAnnotation(mark)
+        mapView.setRegion(MKCoordinateRegion(center: userLocation, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)), animated: true)
         
-        mapView.setRegion(MKCoordinateRegion(center: testLocation, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)), animated: true)
-        
-        changeLabelButton.addTarget(self, action: #selector(textFieldDidChange), for: .touchUpInside)
-
+    }
+    
+    func detailData() {
+        userService.request(.userDetail(userID: userID!)) { res in
+            switch res {
+            case .success(let result):
+                switch result.statusCode {
+                case 200:
+                    if let data = try? JSONDecoder().decode(DetailModel.self, from: result.data) {
+                        self.longitude = data.longitude
+                        self.latitude = data.latitude
+                        self.memberName = data.name
+                        self.statusCondition = data.status
+                        self.workedTime = data.workTime
+                        self.leftTime = data.remainingTime
+                        print("온라인 유저 정보 가져옴")
+                        self.setUI()
+                    } else {
+                        print("온라인 유저 디코딩 오류")
+                    }
+                default:
+                    print(result.statusCode)
+                }
+            case .failure(_):
+                print("온라인 유저 오류")
+            }
+        }
     }
 }
 
@@ -155,23 +188,15 @@ extension MemberDetailView {
         setCircle()
         setStatusLabel()
         mapSetting()
-        searchLocation(testLocation)
+        searchLocation(userLocation)
         setRx()
     }
     
     fileprivate func addToView() {
-        view.addSubview(memberNameLabel)
-        view.addSubview(changeLabelButton)
-        view.addSubview(memberImageView)
-        view.addSubview(departmentNameLabel)
-        view.addSubview(statusLabel)
-        view.addSubview(mapView)
-        view.addSubview(addressLabel)
-        view.addSubview(workDescription)
-        view.addSubview(roundView)
+        [memberNameLabel, changeLabelButton, memberImageView, departmentNameLabel, statusLabel, mapView, addressLabel, workDescription, roundView, leftTimeDescription, roundView2].forEach( {
+            view.addSubview($0)
+        })
         roundView.addSubview(workedTimeLabel)
-        view.addSubview(leftTimeDescription)
-        view.addSubview(roundView2)
         roundView2.addSubview(leftTimeLabel)
     }
     
@@ -310,7 +335,7 @@ extension MemberDetailView : CLLocationManagerDelegate {
     
     func goLocation(latitudeValue : CLLocationDegrees, longitudeValue : CLLocationDegrees, delta span :Double)->CLLocationCoordinate2D{
 
-        let pLocation = CLLocationCoordinate2DMake(latitude, longtitude)
+        let pLocation = CLLocationCoordinate2DMake(latitude, longitude)
         
         let spanValue = MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)
         

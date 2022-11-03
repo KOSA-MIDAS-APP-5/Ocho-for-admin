@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B25488729146B2F00E62EA7 /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B25488629146B2F00E62EA7 /* DetailModel.swift */; };
+		4B3D78B02914414A002D8B17 /* UserClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3D78AB2914414A002D8B17 /* UserClient.swift */; };
+		4B3D78B12914414A002D8B17 /* MoyaLogPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3D78AD2914414A002D8B17 /* MoyaLogPlugin.swift */; };
+		4B3D78B22914414A002D8B17 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3D78AF2914414A002D8B17 /* Header.swift */; };
+		4B3D78B52914428C002D8B17 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 4B3D78B42914428C002D8B17 /* Moya */; };
+		4B3D78B829144C7E002D8B17 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3D78B729144C7E002D8B17 /* LoginModel.swift */; };
+		4B3D78BA291450DB002D8B17 /* ListDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3D78B9291450DB002D8B17 /* ListDataModel.swift */; };
 		8DEF4D77291392A300D07B61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF4D76291392A300D07B61 /* AppDelegate.swift */; };
 		8DEF4D79291392A300D07B61 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF4D78291392A300D07B61 /* SceneDelegate.swift */; };
 		8DEF4D7B291392A300D07B61 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF4D7A291392A300D07B61 /* LoginViewController.swift */; };
@@ -50,6 +57,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4B25488629146B2F00E62EA7 /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
+		4B3D78AB2914414A002D8B17 /* UserClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserClient.swift; sourceTree = "<group>"; };
+		4B3D78AD2914414A002D8B17 /* MoyaLogPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoyaLogPlugin.swift; sourceTree = "<group>"; };
+		4B3D78AF2914414A002D8B17 /* Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		4B3D78B729144C7E002D8B17 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		4B3D78B9291450DB002D8B17 /* ListDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDataModel.swift; sourceTree = "<group>"; };
 		8DEF4D73291392A300D07B61 /* Attendace-for-admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Attendace-for-admin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DEF4D76291392A300D07B61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8DEF4D78291392A300D07B61 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +94,7 @@
 			files = (
 				8DEF4DB929139DCF00D07B61 /* Then in Frameworks */,
 				8DEF4DB429139DC100D07B61 /* RxRelay in Frameworks */,
+				4B3D78B52914428C002D8B17 /* Moya in Frameworks */,
 				8DEF4DB229139DC100D07B61 /* RxCocoa in Frameworks */,
 				8DEF4DB629139DC100D07B61 /* RxSwift in Frameworks */,
 				8DEF4DAF29139D8800D07B61 /* SnapKit in Frameworks */,
@@ -104,6 +118,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B3D78AA2914414A002D8B17 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				4B3D78AB2914414A002D8B17 /* UserClient.swift */,
+				4B3D78AC2914414A002D8B17 /* Plugin */,
+				4B3D78AE2914414A002D8B17 /* Header */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		4B3D78AC2914414A002D8B17 /* Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				4B3D78AD2914414A002D8B17 /* MoyaLogPlugin.swift */,
+			);
+			path = Plugin;
+			sourceTree = "<group>";
+		};
+		4B3D78AE2914414A002D8B17 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				4B3D78AF2914414A002D8B17 /* Header.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		4B3D78B629144C67002D8B17 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4B3D78B729144C7E002D8B17 /* LoginModel.swift */,
+				4B3D78B9291450DB002D8B17 /* ListDataModel.swift */,
+				4B25488629146B2F00E62EA7 /* DetailModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		8DEF4D6A291392A300D07B61 = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +177,7 @@
 		8DEF4D75291392A300D07B61 /* Attendace-for-admin */ = {
 			isa = PBXGroup;
 			children = (
+				4B3D78AA2914414A002D8B17 /* Network */,
 				8DEF4DBF2913E79B00D07B61 /* Extension */,
 				8DEF4DBA29139F4300D07B61 /* Components */,
 				8DEF4DA62913934400D07B61 /* Controllers */,
@@ -172,6 +223,7 @@
 		8DEF4DBA29139F4300D07B61 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4B3D78B629144C67002D8B17 /* Model */,
 				8DEF4DC629142C3600D07B61 /* kerningLabel.swift */,
 				8DEF4DBB29139F6B00D07B61 /* InputTextField.swift */,
 				8DEF4DC2291416C000D07B61 /* Marker.swift */,
@@ -210,6 +262,7 @@
 				8DEF4DB329139DC100D07B61 /* RxRelay */,
 				8DEF4DB529139DC100D07B61 /* RxSwift */,
 				8DEF4DB829139DCF00D07B61 /* Then */,
+				4B3D78B42914428C002D8B17 /* Moya */,
 			);
 			productName = "Attendace-for-admin";
 			productReference = 8DEF4D73291392A300D07B61 /* Attendace-for-admin.app */;
@@ -287,6 +340,7 @@
 				8DEF4DAD29139D8800D07B61 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				8DEF4DB029139DC100D07B61 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				8DEF4DB729139DCF00D07B61 /* XCRemoteSwiftPackageReference "Then" */,
+				4B3D78B32914428C002D8B17 /* XCRemoteSwiftPackageReference "Moya" */,
 			);
 			productRefGroup = 8DEF4D74291392A300D07B61 /* Products */;
 			projectDirPath = "";
@@ -331,16 +385,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B3D78BA291450DB002D8B17 /* ListDataModel.swift in Sources */,
 				8DEF4DAA291393E200D07B61 /* MemberCell.swift in Sources */,
 				8DEF4DA82913939900D07B61 /* MemberStatusViewController.swift in Sources */,
 				8DEF4DC12913E7B300D07B61 /* UIView + Ext.swift in Sources */,
+				4B3D78B02914414A002D8B17 /* UserClient.swift in Sources */,
 				8DEF4DC729142C3600D07B61 /* kerningLabel.swift in Sources */,
+				4B3D78B829144C7E002D8B17 /* LoginModel.swift in Sources */,
 				8DEF4D7B291392A300D07B61 /* LoginViewController.swift in Sources */,
 				8DEF4DC529142B3B00D07B61 /* UILabel + Ext.swift in Sources */,
 				8DEF4D77291392A300D07B61 /* AppDelegate.swift in Sources */,
 				8DEF4D79291392A300D07B61 /* SceneDelegate.swift in Sources */,
 				8DEF4DBC29139F6B00D07B61 /* InputTextField.swift in Sources */,
+				4B25488729146B2F00E62EA7 /* DetailModel.swift in Sources */,
+				4B3D78B22914414A002D8B17 /* Header.swift in Sources */,
 				8DEF4DAC291399F300D07B61 /* OfflineTableView.swift in Sources */,
+				4B3D78B12914414A002D8B17 /* MoyaLogPlugin.swift in Sources */,
 				8DEF4DBE2913DE2300D07B61 /* MemberDetailView.swift in Sources */,
 				8DEF4DC3291416C000D07B61 /* Marker.swift in Sources */,
 			);
@@ -686,6 +746,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4B3D78B32914428C002D8B17 /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		8DEF4DAD29139D8800D07B61 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -713,6 +781,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4B3D78B42914428C002D8B17 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B3D78B32914428C002D8B17 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
 		8DEF4DAE29139D8800D07B61 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8DEF4DAD29139D8800D07B61 /* XCRemoteSwiftPackageReference "SnapKit" */;

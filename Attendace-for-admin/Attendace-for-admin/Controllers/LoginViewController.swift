@@ -10,8 +10,10 @@ import Then
 import SnapKit
 import RxCocoa
 import RxSwift
+import Moya
 
 class LoginViewController: UIViewController {
+    let userService = MoyaProvider<UserService>(plugins: [MoyaLoggerPlugin()])
     
     var disposeBag = DisposeBag()
     
@@ -53,13 +55,41 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func didTapLogin() {
+        guard let idText = idTextField.text,
+              idText.isEmpty == false else { return }
         
-        guard let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "MemberStatusVC") as? UINavigationController else { return }
-        // 화면 전환 애니메이션 설정
-        secondViewController.modalTransitionStyle = .coverVertical
-        // 전환된 화면이 보여지는 방법 설정 (fullScreen)
-        secondViewController.modalPresentationStyle = .fullScreen
-        self.present(secondViewController, animated: true, completion: nil)
+        guard let pwText = pwTextField.text,
+              pwText.isEmpty == false else { return }
+        
+        userService.request(.logIn(name: idText, password: pwText)) { res in
+            switch res {
+            case .success(let result):
+                switch result.statusCode {
+                case 200:
+                    if let data = try? JSONDecoder().decode(LoginModel.self, from: result.data) {
+                        if data.admin {
+                            Token.accessToken = data.accessToken
+                            print("✅로그인 성공")
+                            guard let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "MemberStatusVC") as? UINavigationController else { return }
+                            // 화면 전환 애니메이션 설정
+                            secondViewController.modalTransitionStyle = .coverVertical
+                            // 전환된 화면이 보여지는 방법 설정 (fullScreen)
+                            secondViewController.modalPresentationStyle = .fullScreen
+                            self.present(secondViewController, animated: true, completion: nil)
+                        } else {
+                            print("어드민 계정이 아님")
+                        }
+                        
+                    } else {
+                        print("로그인 디코드 에러")
+                    }
+                default:
+                    print(result.statusCode)
+                }
+            case .failure(_):
+                print("통신 실패")
+            }
+        }
         
     }
 }
@@ -73,13 +103,9 @@ extension LoginViewController {
     }
     
     fileprivate func addToView(){
-        view.addSubview(adminLabel)
-        view.addSubview(titleLabel)
-        view.addSubview(idTextField)
-        view.addSubview(idValidLabel)
-        view.addSubview(pwTextField)
-        view.addSubview(pwValidLabel)
-        view.addSubview(loginButton)
+        [adminLabel, titleLabel, idTextField, idValidLabel, pwTextField, pwValidLabel, loginButton].forEach({
+            view.addSubview($0)
+        })
     }
     
     fileprivate func setAutoLayout(){
@@ -177,7 +203,10 @@ extension LoginViewController {
             .disposed(by: disposeBag)
         
         loginButton.rx.tap
-            .subscribe(onNext: {[weak self] _ in self?.didTapLogin() })
+            .subscribe(onNext: { [weak self] _ in
+                self?.didTapLogin()
+                
+            })
             .disposed(by: disposeBag)
         
     }
