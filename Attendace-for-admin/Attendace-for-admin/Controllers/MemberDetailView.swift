@@ -19,6 +19,8 @@ class MemberDetailView: UIViewController {
     
     var disposeBag = DisposeBag()
     
+    var result : String!
+    
     var longtitude : Double = 127.101473808
     var latitude : Double = 37.4001134519
     
@@ -37,7 +39,7 @@ class MemberDetailView: UIViewController {
     // 받을 데이터
     let statusCondition = "근무중"
     var memberName = "사원이름"
-    var departmentName = "소속 부서"
+    var departmentName = "수정 후 이름이 기재될 공간입니다."
     
     var statusText = "온라인"
     
@@ -81,6 +83,7 @@ class MemberDetailView: UIViewController {
         $0.text = statusText
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
     }
+    
     
     lazy var addressLabel : UILabel = UILabel().then{
         $0.text = ""
@@ -136,6 +139,9 @@ class MemberDetailView: UIViewController {
         mapView.addAnnotation(mark)
         
         mapView.setRegion(MKCoordinateRegion(center: testLocation, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)), animated: true)
+        
+        changeLabelButton.addTarget(self, action: #selector(textFieldDidChange), for: .touchUpInside)
+
     }
 }
 
@@ -359,22 +365,27 @@ extension MemberDetailView {
             .bind(to: self.changeLabelButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
-        changeLabelButton.rx.tap
-            .subscribe(onNext: {[weak self] _ in self?.didTapButton() })
-            .disposed(by: disposeBag)
+//        changeLabelButton.rx.tap
+//            .subscribe(onNext: {[weak self] _ in self?.didTapButton() })
+//            .disposed(by: disposeBag)
         
-        changeLabelButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+//        changeLabelButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
                     
     }
-    @objc private func didTapButton() {
-        memberNameLabel.rx.text
-            .bind(onNext: { s in
-                self.memberName = s!
-                self.memberNameLabel.placeholder = s
-                self.view.endEditing(true)
-                print(self.memberNameLabel.placeholder)
-            })
-            .disposed(by: disposeBag)
+//    @objc private func textFieldDidChange() {
+//        memberNameLabel.rx.text
+//            .bind(onNext: { s in
+//                self.memberName = s!
+//                self.memberNameLabel.placeholder = s
+//                self.view.endEditing(true)
+//                print(self.memberNameLabel.placeholder)
+//            })
+//            .disposed(by: disposeBag)
+//    }
+    
+    @objc private func textFieldDidChange(_ sender : UITextField){
+        result = memberNameLabel.text!
+        departmentNameLabel.text = "\(result!)"
     }
 
 }
